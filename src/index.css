@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
 @theme {
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
@@ -20,41 +25,51 @@
   --animate-meteor: meteor 5s linear infinite;
 
   @keyframes float {
+
     0%,
     100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-10px);
     }
   }
+
   @keyframes pulse-subtle {
+
     0%,
     100% {
       opacity: 1;
     }
+
     50% {
       opacity: 0.8;
     }
   }
+
   @keyframes fade-in {
     from {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
+
   @keyframes meteor {
     0% {
       transform: rotate(215deg) translateX(0);
       opacity: 1;
     }
+
     70% {
       opacity: 1;
     }
+
     100% {
       transform: rotate(215deg) translateX(-500px);
       opacity: 0;
@@ -64,27 +79,44 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    /*Light Theme */
+    --foreground: 220 25% 20%;
+    /* clean dark gray text */
+    --background: 210 40% 96%;
+    /* pale blue background */
+    --card: 210 70% %;
 
-    --card: 0 0% 100%;
-
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 220 90% 40%;
+    /* bright sky blue */
+    --primary-foreground: 0 0% 100%;
+    /* white text on blue */
 
     --border: 214 32% 91%;
   }
 
+  :root .cosmic-button:hover {
+    box-shadow: 0 0 16px hsl(var(--primary) / 0.6);
+  }
+
   .dark {
+    /*Dark Theme */
     --background: 222 47% 4%;
+    /* deep space */
     --foreground: 213 31% 91%;
+    /* pale gray text */
 
-    --card: 222 47% 8%;
+    --card: 222 47% 12%;
 
-    --primary: 250 65% 65%;
+    --primary: 260 65% 70%;
+    /* violet */
     --primary-foreground: 213 31% 91%;
+    /* light text on violet */
 
     --border: 217 33% 20%;
+  }
+
+  .dark .cosmic-button:hover {
+    box-shadow: 0 0 16px hsl(var(--primary) / 0.6);
   }
 
   * {
@@ -96,28 +128,73 @@
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    color: hsl(var(--foreground));
+    transition: background 0.5s ease, color 0.5s ease;
     font-feature-settings: "rlig" 1, "calt" 1;
+
+    /* 🌞 Light background fallback */
+    background: linear-gradient(to bottom, #dbeafe, #bfdbfe, #fef3c7);
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(200, 200, 255, 0.7) 2px, transparent 0),
+      radial-gradient(circle at 80% 40%, rgba(180, 200, 255, 0.6) 1.5px, transparent 0),
+      radial-gradient(circle at 40% 80%, rgba(200, 220, 255, 0.5) 1px, transparent 0);
+    background-size: 200px 200px, 250px 250px, 300px 300px;
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    /* 🌌 Dark background fallback */
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply w-full rounded-md border border-border px-4 py-3 transition-colors duration-300;
+    background-color: hsl(var(--card) / 0.8);
+    /* frosted tint */
+    color: hsl(var(--foreground));
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: hsl(var(--foreground) / 0.6);
+  }
+
+  /* Focus ring */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 6px hsl(var(--primary) / 0.6);
   }
 }
 
+/* Utilities */
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
 
-  @media (width >= 640px) {
+  @media (width >=640px) {
     max-width: 640px;
   }
-  @media (width >= 768px) {
+
+  @media (width >=768px) {
     max-width: 768px;
   }
-  @media (width >= 1024px) {
+
+  @media (width >=1024px) {
     max-width: 1024px;
   }
-  @media (width >= 1280px) {
+
+  @media (width >=1280px) {
     max-width: 1280px;
   }
-  @media (width >= 1400px) {
+
+  @media (width >=1400px) {
     max-width: 1400px;
   }
 }
@@ -127,9 +204,24 @@
   text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
 }
 
+@utility text-accent {
+  color: hsl(var(--primary));
+  text-shadow: 0 0 10px hsl(var(--primary) / 0.7),
+    0 0 20px hsl(var(--primary) / 0.5);
+}
+
+
 @utility card-hover {
   @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
 }
+
+@utility card-surface {
+  @apply rounded-xl shadow-md transition-colors duration-300;
+  background-color: hsl(var(--card) / 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
 
 @utility gradient-border {
   @apply relative rounded-md;
@@ -139,9 +231,19 @@
 }
 
 @utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-         hover:scale-105 active:scale-95;
+  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium transition-all duration-300 hover:scale-105 active:scale-95;
+  border: 2px solid hsl(var(--primary))
+}
+
+/* Theme-aware button glow */
+:root .cosmic-button:hover {
+  box-shadow: 0 0 12px hsl(var(--primary) / 0.5);
+  /* sky blue glow */
+}
+
+.dark .cosmic-button:hover {
+  box-shadow: 0 0 12px hsl(var(--primary) / 0.5);
+  /* violet glow */
 }
 
 @utility star {

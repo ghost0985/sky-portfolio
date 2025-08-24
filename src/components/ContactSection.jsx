@@ -13,10 +13,6 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { useRef } from "react";
 
-// ByT_vCwkK5JPZk6jP public key
-// server id service_otlntve
-// temp id template_rxz0cot
-
 export const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setisSubmitting] = useState(false);
@@ -28,8 +24,6 @@ export const ContactSection = () => {
     setisSubmitting(true);
 
     const formData = new FormData(formRef.current);
-    console.log("Submitted values:", Object.fromEntries(formData));
-
     emailjs
       .sendForm(
         "service_otlntve",
@@ -136,7 +130,7 @@ export const ContactSection = () => {
             </div>
           </div>
 
-          <div className="bg-card p-8 rounded-lg shadow-xs">
+          <div className="card-surface p-8 rounded-lg shadow-xs">
             <h3 className="text-2xl font-semibold mb-6"> Send a Message</h3>
 
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">

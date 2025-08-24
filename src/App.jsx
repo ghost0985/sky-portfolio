@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NotFound } from "./pages/NotFound";
 import { Home } from "./pages/Home";
-import Toaster from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/toaster"; 
 
 function App() {
   return (
-    <>
-      <Toaster />
+    <div>
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </>
+      <Toaster />
+    </div>
   );
 }
 

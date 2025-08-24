@@ -3,6 +3,16 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     id: 1,
+    title: "TrelloClone",
+    description:
+      "TrelloClone is a Kanban task manager built with Next.js, TypeScript, and Tailwind CSS. It supports drag-and-drop cards/columns with optimistic updates and persisted state. Clerk powers auth and billing—free plan plus two paid tiers (upgrade/downgrade/cancel) with server-side feature gating via webhooks/protected routes. Data lives in Supabase Postgres with type-safe server actions and per-user RLS, all in a fully responsive UI.",
+    image: "/projects/Trello.png",
+    tags: ["Node.js", "TypeScript", "JavaScript", "HTML"],
+    demoUrl: "https://trello-clone-6-8.vercel.app/",
+    githubUrl: "https://github.com/ghost0985/TrelloClone",
+  },
+  {
+    id: 2,
     title: "Skinstric AI",
     description:
       "A replica of the Skinstric website featuring integration with two APIs to enable AI-powered facial scanning and analysis. Users can take or upload a photo, and the AI provides detailed insights based on the submitted image.",
@@ -12,7 +22,7 @@ const projects = [
     githubUrl: "https://github.com/ghost0985/Skinstric-Project",
   },
   {
-    id: 2,
+    id: 3,
     title: "NFT Market",
     description:
       "A fully developed NFT marketplace clone for buying and selling NFTs. The site integrates multiple APIs to display real-time data across the platform, providing users with a seamless and informative experience.",
@@ -22,7 +32,7 @@ const projects = [
     githubUrl: "https://github.com/ghost0985/Logan-Internship",
   },
   {
-    id: 3,
+    id: 4,
     title: "Movie Site",
     description:
       "A movie website built to enhance my React skills, featuring integration with a live API to fetch and display movies. Each title includes detailed descriptions and information, offering users an engaging and informative browsing experience.",
@@ -36,10 +46,10 @@ const projects = [
 export const ProjectSection = () => {
   return (
     <section id="projects" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-5xl">
+      <div className="container mx-auto max-w-6xl">
+        {/* Title */}
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          {" "}
-          Featured <span className="text-primary"> Projects</span>
+          Featured <span className="text-primary">Projects</span>
         </h2>
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -47,49 +57,56 @@ export const ProjectSection = () => {
           detail, performance, and user experience.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((projects, key) => (
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          {projects.map((project) => (
             <div
-              key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              key={project.id}
+              className="group card-surface card-hover flex flex-col h-full"
             >
-              <div className="h-48 overflow-hidden">
+              {/* Image */}
+              <div className="h-52 overflow-hidden rounded-md">
                 <img
-                  src={projects.image}
-                  alt={projects.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {projects.tags.map((tag) => (
-                    <span className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground">
+              {/* Content */}
+              <div className="flex flex-col flex-grow p-6 space-y-5">
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 text-xs font-medium border rounded-full bg-primary/10 text-primary"
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <h3 className="text-xl font-semibold mb-1">
-                  {" "}
-                  {projects.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {projects.description}
+                {/* Title + Desc */}
+                <h3 className="text-xl font-semibold">{project.title}</h3>
+                <p className="text-sm text-foreground/80 leading-relaxed">
+                  {project.description}
                 </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
+
+                {/* Links */}
+                <div className="flex justify-between items-center mt-auto">
+                  <div className="flex space-x-4">
                     <a
-                      href={projects.demoUrl}
+                      href={project.demoUrl}
                       target="_blank"
-                      className="text-foreground/80 hover:text-primary transition-color duration-300"
+                      className="text-foreground/70 hover:text-primary transition-colors duration-300"
                     >
                       <ExternalLink size={20} />
                     </a>
                     <a
-                      href={projects.githubUrl}
+                      href={project.githubUrl}
                       target="_blank"
-                      className="text-foreground/80 hover:text-primary transition-color duration-300"
+                      className="text-foreground/70 hover:text-primary transition-colors duration-300"
                     >
                       <Github size={20} />
                     </a>
@@ -100,7 +117,8 @@ export const ProjectSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        {/* Github CTA */}
+        <div className="text-center mt-16">
           <a
             href="https://github.com/ghost0985"
             target="_blank"

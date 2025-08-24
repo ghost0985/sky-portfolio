@@ -4,20 +4,18 @@ import { cn } from "@/lib/utils";
 const skills = [
   // Frontend Skills and Levels
   { name: "HTML/CSS", level: 90, category: "frontend" },
-  { name: "JavaScript", level: 85, category: "frontend" },
+  { name: "Tailwind CSS", level: 85, category: "frontend" },
+  { name: "JavaScript", level: 89, category: "frontend" },
+  { name: "TypeScript", level: 65, category: "frontend" },
   { name: "React", level: 80, category: "frontend" },
-  { name: "Tailwind CSS", level: 45, category: "frontend" },
-
-  // Backend Skills and Levels (Add once have)
-  //   { name: "None", category: "backend" },
+  { name: "Next.js", level: 56, category: "frontend" },
 
   // Tools Skills and Levels
   { name: "Git/Github", level: 90, category: "tools" },
   { name: "Figma", level: 35, category: "tools" },
-  { name: "VS code", level: 95, category: "tools" },
 ];
 
-const categories = ["all", "frontend" /* backend */, "tools"];
+const categories = ["all", "frontend", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -53,7 +51,7 @@ export const SkillsSection = () => {
           {filteredSkills.map((skill, key) => (
             <div
               key={key}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover"
+              className="card-surface p-6 rounded-lg shadow-xs card-hover"
             >
               <div className="text-left mb-4">
                 <h3 className="font-semibold text-lg"> {skill.name}</h3>
